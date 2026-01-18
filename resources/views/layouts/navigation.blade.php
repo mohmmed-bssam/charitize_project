@@ -11,10 +11,39 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-4 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('dashboard.sliders.index')" :active="request()->routeIs('dashboard.sliders.index')">
+                        {{ __('Sliders') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard.categories.index')" :active="request()->routeIs('dashboard.categories.index')">
+                        {{ __('Categories') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard.cases.index')" :active="request()->routeIs('dashboard.cases.index')">
+                        {{ __('Cases') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard.services.index')" :active="request()->routeIs('dashboard.services.index')">
+                        {{ __('Services') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard.statistics.index')" :active="request()->routeIs('dashboard.statistics.index')">
+                        {{ __('Statistics') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard.events.index')" :active="request()->routeIs('dashboard.events.index')">
+                        {{ __('Events') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard.teams.index')" :active="request()->routeIs('dashboard.teams.index')">
+                        {{ __('Teams') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard.testimonials.index')" :active="request()->routeIs('dashboard.testimonials.index')">
+                        {{ __('Testimonials') }}
+                    </x-nav-link>
+
+
+
+
+
                 </div>
             </div>
 
