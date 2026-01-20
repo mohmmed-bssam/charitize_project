@@ -13,6 +13,16 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <!-- Styles -->
+        @if(app()->getLocale() == 'ar')
+        <style>
+            body {
+                font-family: 'Cairo', sans-serif;
+                direction: rtl;
+                text-align: right;
+            }
+        </style>
+        @endif
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">

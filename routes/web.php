@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Dashboard\CaseController;
 use App\Http\Controllers\Dashboard\CategoryController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\EventController;
 use App\Http\Controllers\Dashboard\ServiceController;
@@ -10,7 +9,16 @@ use App\Http\Controllers\Dashboard\SliderController;
 use App\Http\Controllers\Dashboard\StatisticController;
 use App\Http\Controllers\Dashboard\TeamController;
 use App\Http\Controllers\Dashboard\TestimonialController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
+
+Route::group(['prefix' => LaravelLocalization::setLocale()], function()
+{
+        Route::get('/', function () {
+        return view('welcome');
+    });
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,3 +49,4 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
     });
 
 require __DIR__.'/auth.php';
+});
