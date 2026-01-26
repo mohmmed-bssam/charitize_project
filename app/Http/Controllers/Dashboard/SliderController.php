@@ -14,7 +14,7 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $sliders = Slider::latest()->paginate(env('PAGE_SIZE'));
+        $sliders = Slider::with('image')->latest()->paginate(env('PAGE_SIZE'));
         return view('dashboard.sliders.index', compact('sliders'));
     }
 

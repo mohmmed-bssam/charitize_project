@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('subjects');
-            $table->text('content');
+            $table->text(column: 'message');
             $table->timestamps();
         });
     }

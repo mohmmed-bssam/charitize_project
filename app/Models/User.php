@@ -46,6 +46,6 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
     public function donations(){
-        return $this->hasMany(Payment::class);
+        return $this->hasMany(Payment::class,'user_id');
     }
 }

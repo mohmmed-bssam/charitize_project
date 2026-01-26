@@ -17,4 +17,23 @@ class Cause extends Model
         return $this->hasMany(Payment::class);
     }
 
+     public function image(){
+        return $this->morphOne(Image::class, 'imageable');
+    }
+     public function gallery(){
+        return $this->morphMany(Image::class, 'imageable')
+        ->where('type','gallery');
+    }
+    public function casts(): array{
+        return [
+            'title' => 'array',
+            'content' => 'array',
+
+        ];
+
+    }
+    public function getTitleTransAttribute(){
+        return $this->title[app()->getLocale()];
+    }
+
 }

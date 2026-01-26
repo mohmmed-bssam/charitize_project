@@ -9,8 +9,13 @@ class Category extends Model
 
 
     protected $guarded=[];
-    public function causes()
+    public function cases()
     {
         return $this->hasMany(Cause::class);
+    }
+    public function casts(): array{
+        return [
+            'title' => 'array',
+        ];
     }
 }

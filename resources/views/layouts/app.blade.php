@@ -27,6 +27,7 @@
             }
         </style>
     @endif
+    @stack('css')
 </head>
 
 <body class="font-sans antialiased">

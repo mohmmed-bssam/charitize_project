@@ -2,11 +2,9 @@
     <x-slot name="header">
         <div class="flex align-items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('admin.sliders') }}
+                {{ __('admin.donors') }}
             </h2>
-            <a class="bg-green-600 p-1 px-8 rounded text-white hover:bg-green-500 duration-200"
-                href="{{ route('dashboard.sliders.create') }}">{{ __('Add slider') }}</a>
-        </div>
+
     </x-slot>
 
     <div class="py-12">
@@ -24,17 +22,19 @@
                                     <th scope="col" class="px-6 py-3 font-medium">
                                         #
                                     </th>
+
                                     <th scope="col" class="px-6 py-3 font-medium">
-                                        Image
+                                        Name
                                     </th>
                                     <th scope="col" class="px-6 py-3 font-medium">
-                                        Title
+                                        Email
+                                    </th>
+
+                                    <th scope="col" class="px-6 py-3 font-medium">
+                                        Total Donations
                                     </th>
                                     <th scope="col" class="px-6 py-3 font-medium">
-                                        Created At
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 font-medium">
-                                        Updated At
+                                        Total Cases
                                     </th>
                                     <th scope="col" class="px-6 py-3 font-medium">
                                         Actions
@@ -42,40 +42,50 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($sliders as $slider)
+                                @forelse ($donors as $donor)
                                     <tr class="bg-neutral-primary border-b border-default">
                                         <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
                                             {{ $loop->iteration }}
                                         </th>
+
                                         <td class="px-6 py-4">
-                                            <img src="{{ asset($slider->image->path) }}"
-                                                width="80"  alt="">
+                                            {{ $donor->name }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $slider->title_trans }}
+                                            {{ $donor->email }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $slider->created_at->format('Y-m-d') }}
+                                            ${{ $donor->donations->sum('amount') }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $slider->updated_at->diffForHumans() }}
+                                            {{ $donor->donations->count() }}
                                         </td>
+
+
                                         <td class="px-6 py-4 flex space-x-2 text-center">
-                                            <a href="{{ route('dashboard.sliders.edit', $slider->id) }}"
-                                                class="text-blue-600 hover:underline"><i class="fas fa-edit"></i></a>
-                                            <form action="{{ route('dashboard.sliders.destroy', $slider->id) }}"
-                                                method="POST" onsubmit="return confirm('Are you sure?');">
+                                            <x-primary-button x-data=""
+                                                x-on:click.prevent="$dispatch('open-modal', 'show-donor-{{ $donor->id }}')">
+                                                <i class="fas fa-eye"></i>
+                                            </x-primary-button>
+                                            <x-modal name="show-donor-{{ $donor->id }}" :show="$errors->isNotEmpty()" focusable>
+                                                <div class="p-6">
+
+                                                    {{ $donor->donor }}
+                                                </div>
+                                            </x-modal>
+                                            <form action=" " method="POST"
+                                                onsubmit="return confirm('Are you sure?');">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:underline"><i
-                                                        class="fas fa-trash"></i></button>
+                                                <x-danger-button type="submit"><i
+                                                        class="fas fa-trash"></i></x-danger-button>
                                             </form>
                                         </td>
 
                                     @empty
                                     <tr>
                                         <td colspan="6" class="px-6 py-4 text-center">
-                                            No sliders found.
+                                            No donors found.
                                         </td>
                                     </tr>
                                 @endforelse

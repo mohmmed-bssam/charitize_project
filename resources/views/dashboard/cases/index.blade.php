@@ -2,10 +2,10 @@
     <x-slot name="header">
         <div class="flex align-items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('admin.sliders') }}
+                {{ __('admin.cases') }}
             </h2>
             <a class="bg-green-600 p-1 px-8 rounded text-white hover:bg-green-500 duration-200"
-                href="{{ route('dashboard.sliders.create') }}">{{ __('Add slider') }}</a>
+                href="{{ route('dashboard.cases.create') }}">{{ __('Add case') }}</a>
         </div>
     </x-slot>
 
@@ -42,28 +42,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($sliders as $slider)
+                                @forelse ($cases as $case)
                                     <tr class="bg-neutral-primary border-b border-default">
                                         <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
                                             {{ $loop->iteration }}
                                         </th>
                                         <td class="px-6 py-4">
-                                            <img src="{{ asset($slider->image->path) }}"
+                                            <img src="{{ asset($case->image->path) }}"
                                                 width="80"  alt="">
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $slider->title_trans }}
+                                            {{ $case->title_trans }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $slider->created_at->format('Y-m-d') }}
+                                            {{ $case->created_at->format('Y-m-d') }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $slider->updated_at->diffForHumans() }}
+                                            {{ $case->updated_at->diffForHumans() }}
                                         </td>
                                         <td class="px-6 py-4 flex space-x-2 text-center">
-                                            <a href="{{ route('dashboard.sliders.edit', $slider->id) }}"
+                                            <a href="{{ route('dashboard.cases.edit', $case->id) }}"
                                                 class="text-blue-600 hover:underline"><i class="fas fa-edit"></i></a>
-                                            <form action="{{ route('dashboard.sliders.destroy', $slider->id) }}"
+                                            <form action="{{ route('dashboard.cases.destroy', $case->id) }}"
                                                 method="POST" onsubmit="return confirm('Are you sure?');">
                                                 @csrf
                                                 @method('DELETE')
@@ -75,7 +75,7 @@
                                     @empty
                                     <tr>
                                         <td colspan="6" class="px-6 py-4 text-center">
-                                            No sliders found.
+                                            No cases found.
                                         </td>
                                     </tr>
                                 @endforelse

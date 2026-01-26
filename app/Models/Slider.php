@@ -18,6 +18,10 @@ class Slider extends Model
             'btn1_text' => 'array',
             'btn2_text' => 'array',
         ];
+
+    }
+    public function getTitleTransAttribute(){
+        return $this->title[app()->getLocale()];
     }
 
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboard\CaseController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\DonationController;
 use App\Http\Controllers\Dashboard\EventController;
 use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\SliderController;
@@ -14,40 +15,42 @@ use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
-Route::group(['prefix' => LaravelLocalization::setLocale()], function()
-{
-        Route::get('/', function () {
+Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
+    Route::get('/', function () {
         return view('welcome');
     });
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-Route::middleware(['auth', 'verified','admin'])->group(function () {
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard');
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-
-    Route::prefix('dashboard')->name('dashboard.')->group(function () {
-        Route::resource('sliders', SliderController::class);
-        Route::resource('categories', CategoryController::class);
-        Route::resource('cases', CaseController::class);
-        Route::resource('events', EventController::class);
-        Route::resource('services', ServiceController::class);
-        Route::resource('statistics', StatisticController::class);
-        Route::resource('teams', TeamController::class);
-        Route::resource('testimonials', TestimonialController::class);
+    Route::get('/', function () {
+        return view('welcome');
     });
 
+
+    Route::middleware(['auth', 'verified', 'admin'])->group(function () {
+
+        // Route::get('/dashboard', function () {
+        //     return view('dashboard');
+        // })->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+        Route::prefix('dashboard')->name('dashboard.')->group(function () {
+            Route::resource('sliders', SliderController::class);
+            Route::resource('categories', CategoryController::class);
+            Route::resource('cases', CaseController::class);
+            Route::resource('events', EventController::class);
+            Route::resource('services', ServiceController::class);
+            Route::resource('statistics', StatisticController::class);
+            Route::resource('teams', TeamController::class);
+            Route::resource('testimonials', TestimonialController::class);
+            Route::get('messages', [DashboardController::class, 'messages'])->name('messages');
+            Route::get('subscriptions', [DashboardController::class, 'subscriptions'])->name('subscriptions');
+            Route::get('donors', [DonationController::class, 'donors'])->name('donors');
+            Route::get('donations', [DonationController::class, 'donations'])->name(name: 'donations');
+        });
     });
 
-require __DIR__.'/auth.php';
+    require __DIR__ . '/auth.php';
 });

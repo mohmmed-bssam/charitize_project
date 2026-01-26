@@ -11,7 +11,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-4 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-3 sm:-my-px sm:ms-6 sm:flex sm:items-center">
                     <x-nav-link class="{{ app()->getLocale() == 'ar' ? 'me-4' : '' }}" :href="route('dashboard')"
                         :active="request()->routeIs('dashboard')">
                         {{ __('admin.dashboard') }}
@@ -41,6 +41,38 @@
                         {{ __('admin.testimonials') }}
                     </x-nav-link>
 
+                    <x-dropdown align="right" width="48">
+                        <x-slot name="trigger">
+                            <button
+                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                <div>{{ __('admin.payments') }}</div>
+
+                                <div class="ms-1">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </button>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <x-dropdown-link :href="route('dashboard.donations')">
+                                {{ __('admin.donations') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('dashboard.donors')">
+                                {{ __('admin.donors') }}
+                            </x-dropdown-link>
+
+
+                        </x-slot>
+                    </x-dropdown>
+                    <x-nav-link :href="route('dashboard.subscriptions')" :active="request()->routeIs('dashboard.subscriptions')">
+                        {{ __('admin.subscriptions') }}
+                    </x-nav-link>
+
 
 
 
@@ -55,19 +87,15 @@
                     <x-slot name="trigger">
                         <button
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div><svg xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24"
-                                viewBox="0 0 24 24" fill="none"
-                                stroke="#000000"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round">
-                                    <path d="M5 8l6 6"/>
-                                    <path d="M5 l4l6 2-3"/>
-                                    <path d="M2 5h12"/>
-                                    <path d="M7 2h1"/>
-                                    <path d="M22 22l-5-10-5 10"/>
-                                    <path d="M14 18h6"/>
+                            <div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M5 8l6 6" />
+                                    <path d="M5 l4l6 2-3" />
+                                    <path d="M2 5h12" />
+                                    <path d="M7 2h1" />
+                                    <path d="M22 22l-5-10-5 10" />
+                                    <path d="M14 18h6" />
                                 </svg></div>
 
                             <div class="ms-1">
@@ -83,18 +111,18 @@
 
                     <x-slot name="content">
 
-                            @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                <li>
-                                    <x-dropdown-link :href="LaravelLocalization::getLocalizedURL($localeCode, null, [], true) ">
-                                        {{ $properties['native'] }}
-                                    </x-dropdown-link>
-                                    {{-- <a rel="alternate" hreflang="{{ $localeCode }}"
+                        @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <li>
+                                <x-dropdown-link :href="LaravelLocalization::getLocalizedURL($localeCode, null, [], true)">
+                                    {{ $properties['native'] }}
+                                </x-dropdown-link>
+                                {{-- <a rel="alternate" hreflang="{{ $localeCode }}"
                                         href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                                         {{ $properties['native'] }}
                                     </a> --}}
 
-                                </li>
-                            @endforeach
+                            </li>
+                        @endforeach
 
 
 
@@ -119,6 +147,9 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('dashboard.messages')">
+                            {{ __('Messages') }}
+                        </x-dropdown-link>
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>

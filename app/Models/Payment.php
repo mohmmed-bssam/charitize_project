@@ -10,11 +10,11 @@ class Payment extends Model
 
     protected $guarded=[];
 
-    public function donner(){
-        return $this->belongsTo(User::class)->withDefault();
+    public function donor(){
+        return $this->belongsTo(User::class,'user_id')->withDefault();
     }
-    public function cause(){
-        return $this->belongsTo(Cause::class)->withDefault();
+    public function case(){
+        return $this->belongsTo(Cause::class,'cause_id')->withDefault();
     }
 
 
