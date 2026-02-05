@@ -32,9 +32,13 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
         Route::get('/contact', [MainController::class, 'contact'])->name('contact');
         Route::post('/contact', [MainController::class, 'contact_data']);
         Route::get('/donate/{cause}', [PaymentController::class, 'donate']
-        )->name('donate')->middleware('auth');
+        )->name('donate');
         Route::post('/donate', [PaymentController::class, 'donate_process']
-        )->name('donate.process')->middleware('auth');
+        )->name('donate.process');
+        Route::get('/donation/success', [PaymentController::class, 'donate_success']
+        )->name('donate.success');
+        Route::get('/donation/cancel', [PaymentController::class, 'donate_cancel']
+        )->name('donate.cancel');
     });
 
     //Dashboard Routes

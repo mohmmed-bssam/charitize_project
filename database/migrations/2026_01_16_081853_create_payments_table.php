@@ -18,8 +18,8 @@ return new class extends Migration
             $table->enum('status',
             ['processing','completed','canceled'])->default('processing');
             $table->enum('payment_gateway',
-            ['paypal','strip','hyperpay'])->default('strip');
-            $table->string('transaction_number')->unique();
+            ['paypal','stripe','hyperpay'])->default('stripe');
+            $table->string('transaction_number')->nullable();
             $table->foreignId('user_id')->nullable()
             ->constrained()->nullOnDelete();
             $table->foreignId('cause_id')->nullable()

@@ -13,7 +13,9 @@
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "mcamara/laravel-localization": "^2.3",
-        "php-flasher/flasher-laravel": "^2.4"
+        "paypal/paypal-checkout-sdk": "^1.0",
+        "php-flasher/flasher-laravel": "^2.4",
+        "stripe/stripe-php": "^19.3"
     },
     "require-dev": {
         "beyondcode/laravel-query-detector": "*",

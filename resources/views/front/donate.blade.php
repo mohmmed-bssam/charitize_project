@@ -43,7 +43,7 @@
                                 <div class="col-12">
                                     <div class="form-floating">
                                         <input type="text" class="form-control" id="name" placeholder="Your Name"
-                                            value="{{ Auth::user()->name }}" name="name" >
+                                            value="{{ Auth::user()->name }}" name="name">
                                         <label for="name">Your Name</label>
                                     </div>
                                 </div>
@@ -89,12 +89,13 @@
                                 <div class="col-12">
                                     <h5>Payment Gateway</h5>
                                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                        <input type="radio" class="btn-check" name="payment_gateway" value="paypal"
-                                            id="PayPal" _ autocomplete="off" checked>
-                                        <label class="btn btn-light" for="PayPal">PayPal</label>
                                         <input type="radio" class="btn-check" name="payment_gateway" value="stripe"
-                                            id="Stripe" _ autocomplete="off">
+                                            id="Stripe" _ autocomplete="off" checked>
                                         <label class="btn btn-light" for="Stripe">Stripe</label>
+                                        <input type="radio" class="btn-check" name="payment_gateway" value="paypal"
+                                            id="PayPal" _ autocomplete="off" >
+                                        <label class="btn btn-light" for="PayPal">PayPal</label>
+
                                     </div>
 
                                 </div>
