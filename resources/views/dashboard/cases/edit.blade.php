@@ -32,4 +32,26 @@
             </div>
         </div>
     </div>
+    @push('js')
+        <script>
+            const del_btns = document.querySelectorAll('.del_image');
+            del_btns.forEach(el => {
+                el.onclick = (e) => {
+                    e.preventDefault();
+                    if (confirm('Are you sure you want to delete this image?')) {
+                        let url = el.href;
+                        axios.get(url)
+                            .then((res) => {
+                                if (res.data.status) {
+                                    el.previousElementSibling.remove();
+                                    el.remove();
+                                }
+                            }).catch(err => {
+                                console.log(err);
+                            });
+                    }
+                }
+            });
+        </script>
+    @endpush
 </x-app-layout>

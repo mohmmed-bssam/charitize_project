@@ -15,7 +15,7 @@
                   <div class="mt-4">
                       <x-input-label for="image" :value="__('Image')" />
                       <x-text-input accept="image/*" id="image" class="block mt-1 w-full" type="file"
-                          name="image"  />
+                          name="image" />
                       @if ($case && $case->image)
                           <img src="{{ asset($case->image->path) }}" alt="case Image" width="100">
                       @endif
@@ -25,12 +25,21 @@
                       <x-input-label for="gallery" :value="__('Gallery')" />
                       <x-text-input accept="image/*" id="gallery" class="block mt-1 w-full" type="file"
                           name="gallery[]" multiple />
-                       @if ($case && $case->gallery)
-                          <div class="flex gap-1">
-                            @foreach ($case->gallery as $item)
-                              <img src="{{ asset($item->path) }}" alt="gallery Image" width="80">
-                          @endforeach
+                      @if ($case && $case->gallery)
+                          <div class="flex gap-2 flex-wrap mt-2">
+                              @foreach ($case->gallery as $item)
+                                  <div class="relative inline-block">
+                                      <img src="{{ asset($item->path) }}" alt="gallery image"
+                                          class="w-20 h-20 object-cover rounded">
+
+                                      <a href="{{ route('dashboard.delete_image', [$case->id, $item->id]) }}"
+                                          class="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-700 del_image">
+                                          ✕
+                                      </a>
+                                  </div>
+                              @endforeach
                           </div>
+
                       @endif
                       <x-input-error :messages="$errors->get('gallery')" class="mt-2" />
                   </div>

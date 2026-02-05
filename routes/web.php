@@ -10,21 +10,34 @@ use App\Http\Controllers\Dashboard\SliderController;
 use App\Http\Controllers\Dashboard\StatisticController;
 use App\Http\Controllers\Dashboard\TeamController;
 use App\Http\Controllers\Dashboard\TestimonialController;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
-Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
-    Route::get('/', function () {
-        return view('welcome');
+Route::prefix(LaravelLocalization::setLocale())->group(function () {
+    // Website Routes
+
+    Route::name('front.')->group(function () {
+        Route::get('/', [MainController::class, 'index'])->name('index');
+        Route::get('/about', [MainController::class, 'about'])->name('about');
+        Route::get('/services', [MainController::class, 'services'])->name('services');
+        Route::get('/donations', [MainController::class, 'donation'])->name('donation');
+        Route::get('/events', [MainController::class, 'events'])->name('events');
+        Route::get('/features', [MainController::class, 'features'])->name('features');
+        Route::get('/teams', [MainController::class, 'teams'])->name('teams');
+        Route::get('/testimonials', [MainController::class, 'testimonials'])->name('testimonials');
+        Route::get('/contact', [MainController::class, 'contact'])->name('contact');
+        Route::post('/contact', [MainController::class, 'contact_data']);
+        Route::get('/donate/{cause}', [PaymentController::class, 'donate']
+        )->name('donate')->middleware('auth');
+        Route::post('/donate', [PaymentController::class, 'donate_process']
+        )->name('donate.process')->middleware('auth');
     });
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
-
-
+    //Dashboard Routes
     Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
         // Route::get('/dashboard', function () {
@@ -40,6 +53,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::resource('sliders', SliderController::class);
             Route::resource('categories', CategoryController::class);
             Route::resource('cases', CaseController::class);
+            Route::get('case/{cause}/delete/{image}', [CaseController::class,'delete_image'])->name('delete_image');
             Route::resource('events', EventController::class);
             Route::resource('services', ServiceController::class);
             Route::resource('statistics', StatisticController::class);
@@ -49,6 +63,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::get('subscriptions', [DashboardController::class, 'subscriptions'])->name('subscriptions');
             Route::get('donors', [DonationController::class, 'donors'])->name('donors');
             Route::get('donations', [DonationController::class, 'donations'])->name(name: 'donations');
+            Route::get('settings', [DashboardController::class, 'settings'])->name('settings');
+            Route::put('settings', [DashboardController::class, 'settings_update']);
         });
     });
 

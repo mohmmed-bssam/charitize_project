@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\Trans;
 use Illuminate\Database\Eloquent\Model;
 
 class Slider extends Model
 {
+    use Trans;
     protected $guarded=[];
 
     public function image(){
@@ -20,8 +22,6 @@ class Slider extends Model
         ];
 
     }
-    public function getTitleTransAttribute(){
-        return $this->title[app()->getLocale()];
-    }
+
 
 }

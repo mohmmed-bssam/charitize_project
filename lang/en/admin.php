@@ -16,7 +16,9 @@
         'donors'=>'Donors',
         'messages'=>'Messages',
         'teams' => 'Teams',
+        'settings'=>'Settings',
         'testimonials' => 'Testimonials',
         'language'=>'languages',
+        'home_page'=>'Home Page',
     ];
 ?>

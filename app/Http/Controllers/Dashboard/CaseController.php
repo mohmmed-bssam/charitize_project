@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Cause;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -66,11 +67,11 @@ class CaseController extends Controller
         ]);
         if ($request->has('gallery')) {
             foreach ($request->gallery as $img) {
-                $path =$img
+                $path = $img
                     ->store('uploads/cases', 'custom');
                 $case->gallery()->create([
                     'path' => $path,
-                    'type'=>'gallery',
+                    'type' => 'gallery',
 
                 ]);
             }
@@ -126,15 +127,14 @@ class CaseController extends Controller
                 'path' => $path,
 
             ]);
-
         }
         if ($request->has('gallery')) {
             foreach ($request->gallery as $img) {
-                $path =$img
+                $path = $img
                     ->store('uploads/cases', 'custom');
                 $case->gallery()->create([
                     'path' => $path,
-                    'type'=>'gallery',
+                    'type' => 'gallery',
 
                 ]);
             }
@@ -154,5 +154,16 @@ class CaseController extends Controller
 
         flash()->warning('Case deleted successfully');
         return redirect()->route('dashboard.cases.index');
+    }
+    function delete_image(Cause $cause, Image $image)
+    {
+        File::delete(public_path($image->path));
+        $image->delete();
+
+        return[
+            'status' => 'true',
+            'message' => 'Image deleted successfully'
+
+        ];
     }
 }

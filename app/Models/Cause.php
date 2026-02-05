@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\Trans;
 use Illuminate\Database\Eloquent\Model;
 
 class Cause extends Model
 {
-    //
+    use Trans;
 
     protected $guarded=[];
     public function category()
@@ -32,8 +33,9 @@ class Cause extends Model
         ];
 
     }
-    public function getTitleTransAttribute(){
-        return $this->title[app()->getLocale()];
+    public function getRaisedAttribute(){
+        return $this->donations->sum('amount');
     }
+
 
 }

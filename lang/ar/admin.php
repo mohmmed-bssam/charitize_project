@@ -15,7 +15,8 @@ return [
     'donations' => 'Donations',
     'donors' => 'المتبرعين',
     'messages' => 'الرسائل',
-
+    'settings' => 'الاعدادات',
+    'home_page' => 'الصفحة الرئيسية',
     'teams' => 'الفرق',
     'testimonials' => 'أراء العملاء',
     'language' => 'اللغة',
