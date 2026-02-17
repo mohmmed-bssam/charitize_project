@@ -116,7 +116,7 @@
                                 <x-dropdown-link :href="LaravelLocalization::getLocalizedURL($localeCode, null, [], true)">
                                     {{ $properties['native'] }}
                                 </x-dropdown-link>
-                               
+
 
                             </li>
                         @endforeach
@@ -146,6 +146,9 @@
                     <x-slot name="content">
                         <x-dropdown-link :href="route('dashboard.messages')">
                             {{ __('admin.messages') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('dashboard.notifications')">
+                            {{ __('admin.notifications') }}
                         </x-dropdown-link>
                         <x-dropdown-link :href="route('dashboard.settings')">
                             {{ __('admin.settings') }}

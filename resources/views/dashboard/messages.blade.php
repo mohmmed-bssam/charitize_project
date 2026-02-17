@@ -73,7 +73,7 @@
                                                     {{ $message->message }}
                                                 </div>
                                             </x-modal>
-                                            <form action=" " method="POST" onsubmit="return confirm('Are you sure?');">
+                                            <form action="{{ route('dashboard.delete_messages',$message->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
                                                 @csrf
                                                 @method('DELETE')
                                                 <x-danger-button type="submit"><i class="fas fa-trash"></i></x-danger-button>

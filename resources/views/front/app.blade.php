@@ -18,7 +18,9 @@
         rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
@@ -62,7 +64,7 @@
             }
 
             .breadcrumb-item+.breadcrumb-item::before {
-                float:right;
+                float: right;
                 padding-right: .5rem;
             }
         </style>
@@ -71,6 +73,9 @@
 </head>
 
 <body>
+    {{-- @if (Auth::check() && Auth::user()->type == 'admin')
+        <a href="{{ route('dashboard') }}"> Dashboard</a>
+    @endif --}}
     <!-- Spinner Start -->
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -167,6 +172,24 @@
                                 class="nav-item nav-link {{ Request()->routeIs('front.testimonials') ? 'active' : '' }}">Testimonials</a>
                             <a href="{{ route('front.contact') }}"
                                 class="nav-item nav-link {{ Request()->routeIs('front.contact') ? 'active' : '' }}">Contact</a>
+                            @guest
+                                <a href="{{ route('login') }}"
+                                    class="nav-item nav-link {{ Request()->routeIs('login') ? 'active' : '' }}">Login</a>
+                                <a href="{{ route('register') }}"
+                                    class="nav-item nav-link {{ Request()->routeIs('register') ? 'active' : '' }}">Register</a>
+
+                            @endguest
+                            @auth
+                                <a href="{{ route('dashboard') }}"
+                                    class="nav-item nav-link {{ Request()->routeIs('dashboard') ? 'active' : '' }}">Dashboard</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                                <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                    class="nav-item nav-link {{ Request()->routeIs('logout') ? 'active' : '' }}">Logout</a>
+
+                            @endauth
 
                             @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                                 @if ($localeCode != app()->getLocale())
@@ -199,7 +222,28 @@
         <!-- Navbar End -->
 
         @yield('content')
-
+        <!-- Newsletter Start -->
+        <div class="container-fluid bg-primary py-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7 text-center wow fadeIn" data-wow-delay="0.5s">
+                        <h1 class="display-6 mb-4">Subscribe the Newsletter</h1>
+                        <div class="position-relative w-100 mb-2">
+                            <form action="{{ route('front.subscriptions') }}" method="POST">
+                                @csrf
+                                <input class="form-control border-0 w-100 ps-4 pe-5" type="text"
+                                    placeholder="Enter Your Email" name="email" style="height: 60px;">
+                                <button type="submit"
+                                    class="btn btn-lg-square shadow-none position-absolute top-0 end-0 mt-2 me-2"><i
+                                        class="fa fa-paper-plane text-primary fs-4"></i></button>
+                            </form>
+                        </div>
+                        <p class="mb-0">Don't worry, we won't spam you with emails.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Newsletter End -->
         <!-- Footer Start -->
         <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.1s">
             <div class="container">
@@ -255,30 +299,12 @@
                     <div class="col-lg-3 col-md-6">
                         <h4 class="text-light mb-4">Gallery</h4>
                         <div class="row g-2">
-                            {{-- @foreach (Image::where('type', 'gallery')->pluck('path')->get() as $gallery)
+                            @foreach ($galleries as $gallery)
                                 <div class="col-4">
-                                    <img class="img-fluid w-100" src="{{ asset($gallery) }}"
-                                        alt="">
+                                    <img class="img-fluid w-100" src="{{ asset($gallery) }}" alt="">
                                 </div>
-                            @endforeach --}}
-                            <div class="col-4">
-                                <img class="img-fluid w-100" src="{{ asset('img/gallery-1.jpg') }}" alt="">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid w-100" src="{{ asset('img/gallery-2.jpg') }}" alt="">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid w-100" src="{{ asset('img/gallery-3.jpg') }}" alt="">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid w-100" src="{{ asset('img/gallery-4.jpg') }}" alt="">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid w-100" src="{{ asset('img/gallery-5.jpg') }}" alt="">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid w-100" src="{{ asset('img/gallery-6.jpg') }}" alt="">
-                            </div>
+                            @endforeach
+
                         </div>
                     </div>
                 </div>

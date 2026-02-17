@@ -1,7 +1,22 @@
 @extends('front.app')
-@section('title','Testimonial')
+@section('title', 'Testimonial')
 @section('content')
-<!-- Testimonial Start -->
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-4">
+            <h1 class="display-3 animated slideInDown">Testimonial</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{{ route('front.index') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Testimonial</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Testimonial Start -->
     <div class="container-fluid py-5">
         <div class="container">
             <div class="row g-5">
@@ -13,102 +28,43 @@
                 </div>
                 <div class="col-md-12 col-lg-8 col-xl-9">
                     <div class="owl-carousel testimonial-carousel wow fadeIn" data-wow-delay="0.3s">
-                        <div class="testimonial-item">
-                            <div class="row g-5 align-items-center">
-                                <div class="col-md-6">
-                                    <div class="testimonial-img">
-                                        <img class="img-fluid" src="img/testimonial-1.jpg" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="testimonial-text pb-5 pb-md-0">
-                                        <div class="mb-2">
-                                            <i class="fa fa-star text-primary"></i>
-                                            <i class="fa fa-star text-primary"></i>
-                                            <i class="fa fa-star text-primary"></i>
-                                            <i class="fa fa-star text-primary"></i>
-                                            <i class="fa fa-star text-primary"></i>
-                                        </div>
-                                        <p class="fs-5">Education is the foundation of change. By funding schools,
-                                            scholarships, and training programs, we can help children and adults unlock
-                                            their potential for a better future.</p>
-                                        <div class="d-flex align-items-center">
-                                            <div class="btn-lg-square bg-light text-secondary flex-shrink-0">
-                                                <i class="fa fa-quote-right fa-2x"></i>
-                                            </div>
-                                            <div class="ps-3">
-                                                <h5 class="mb-0">Alexander Bell</h5>
-                                                <span>CEO, Founder</span>
-                                            </div>
+                        @foreach ($testimonials as $testimonial)
+                            <div class="testimonial-item">
+                                <div class="row g-5 align-items-center">
+                                    <div class="col-md-6">
+                                        <div class="testimonial-img">
+                                            <img class="img-fluid" src="{{ asset($testimonial->image->path) }}"
+                                                alt="">
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-item">
-                            <div class="row g-5 align-items-center">
-                                <div class="col-md-6">
-                                    <div class="testimonial-img">
-                                        <img class="img-fluid" src="img/testimonial-2.jpg" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="testimonial-text pb-5 pb-md-0">
-                                        <div class="mb-2">
-                                            <i class="fa fa-star text-primary"></i>
-                                            <i class="fa fa-star text-primary"></i>
-                                            <i class="fa fa-star text-primary"></i>
-                                            <i class="fa fa-star text-primary"></i>
-                                            <i class="fa fa-star text-primary"></i>
-                                        </div>
-                                        <p class="fs-5">Every hand extended in kindness brings us closer to a world free
-                                            from suffering. Be part of a global movement dedicated to building a future
-                                            where equality and compassion thrive.</p>
-                                        <div class="d-flex align-items-center">
-                                            <div class="btn-lg-square bg-light text-secondary flex-shrink-0">
-                                                <i class="fa fa-quote-right fa-2x"></i>
+                                    <div class="col-md-6">
+                                        <div class="testimonial-text pb-5 pb-md-0">
+                                            <div class="mb-2">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= $testimonial->rate)
+                                                        <i class="fas fa-star text-primary"></i>
+                                                    @else
+                                                        <i class="far fa-star text-primary"></i>
+                                                    @endif
+                                                @endfor
+
                                             </div>
-                                            <div class="ps-3">
-                                                <h5 class="mb-0">Donald Pakura</h5>
-                                                <span>CEO, Founder</span>
+                                            <p class="fs-5">{{ $testimonial->review[app()->getLocale()] }}.</p>
+                                            <div class="d-flex align-items-center">
+                                                <div class="btn-lg-square bg-light text-secondary flex-shrink-0">
+                                                    <i class="fa fa-quote-right fa-2x"></i>
+                                                </div>
+                                                <div class="ps-3">
+                                                    <h5 class="mb-0">{{ $testimonial->title_trans }}</h5>
+                                                    <span>{{ $testimonial->position }}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="testimonial-item">
-                            <div class="row g-5 align-items-center">
-                                <div class="col-md-6">
-                                    <div class="testimonial-img">
-                                        <img class="img-fluid" src="img/testimonial-3.jpg" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="testimonial-text pb-5 pb-md-0">
-                                        <div class="mb-2">
-                                            <i class="fa fa-star text-primary"></i>
-                                            <i class="fa fa-star text-primary"></i>
-                                            <i class="fa fa-star text-primary"></i>
-                                            <i class="fa fa-star text-primary"></i>
-                                            <i class="fa fa-star text-primary"></i>
-                                        </div>
-                                        <p class="fs-5">Love and compassion have the power to heal. Through your
-                                            donations and volunteer work, we can spread kindness and support to
-                                            children, families, and communities struggling to find stability.</p>
-                                        <div class="d-flex align-items-center">
-                                            <div class="btn-lg-square bg-light text-secondary flex-shrink-0">
-                                                <i class="fa fa-quote-right fa-2x"></i>
-                                            </div>
-                                            <div class="ps-3">
-                                                <h5 class="mb-0">Boris Johnson</h5>
-                                                <span>CEO, Founder</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+
                     </div>
                 </div>
             </div>

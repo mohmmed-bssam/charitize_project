@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Cause;
 use App\Models\Payment;
+use App\Models\User;
+use App\Notifications\NewDonation;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Stripe\Stripe;
 use Stripe\Checkout\Session as StripeSession;
 use PayPalCheckoutSdk\Orders\OrdersCreateRequest;
@@ -15,7 +18,6 @@ class PaymentController extends Controller
 {
     public function donate(Cause $cause)
     {
-        // dd($cause->title_trans);
         return view('front.donate', [
             'case' => $cause
         ]);
@@ -23,12 +25,33 @@ class PaymentController extends Controller
     public function donate_process(Request $request)
     {
         // dd($request->all());
+        $case = Cause::findOrFail($request->case_id);
+        $currentTotal = Payment::where('cause_id', $case->id)
+            ->sum('amount');
         $payment = Payment::create([
             'cause_id' => $request->case_id,
             'user_id' => $request->anonymous ? null : Auth::id(),
             'amount' => $request->custom_amount ? $request->custom_amount : $request->fixed_amount,
             'payment_gateway' => $request->payment_gateway,
         ]);
+        // ✅ تحديث الحالة بعد الدفع
+        $newTotal =  Payment::where('cause_id', $case->id)
+            ->sum('amount');
+
+        if ($newTotal >= $case->goal) {
+
+            // تحديث الدفع
+            $payment->update([
+                'status' => 'completed'
+            ]);
+
+            // إغلاق السبب
+            $case->update([
+                'status' => 'close'
+            ]);
+        }
+        $admins = User::where('type', 'admin')->get(); // أو role/is_admin حسب مشروعك
+        Notification::send($admins, new NewDonation($payment, $case));
         return match ($request->payment_gateway) {
             'stripe' => $this->payWithStripe($payment),
             'paypal' => $this->payWithPaypal($payment),
@@ -54,7 +77,7 @@ class PaymentController extends Controller
             $payment->update([
                 'status' => 'completed',
                 'transaction_number' => $session->payment_intent,
-                ]);
+            ]);
         }
         return view('front.payment.success', [
             'payment' => $payment,

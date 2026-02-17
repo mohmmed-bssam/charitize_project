@@ -43,14 +43,14 @@
                                 <div class="col-12">
                                     <div class="form-floating">
                                         <input type="text" class="form-control" id="name" placeholder="Your Name"
-                                            value="{{ Auth::user()->name }}" name="name">
+                                            value="{{ Auth::user()->name ?? '' }}" name="name">
                                         <label for="name">Your Name</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
                                         <input type="email" class="form-control" id="email" placeholder="Your Email"
-                                            value="{{ Auth::user()->email }}" name="email">
+                                            value="{{ Auth::user()->email?? '' }}" name="email">
                                         <label for="email">Your Email</label>
                                     </div>
                                 </div>

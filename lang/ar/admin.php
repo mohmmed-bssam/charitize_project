@@ -16,6 +16,7 @@ return [
     'donors' => 'المتبرعين',
     'messages' => 'الرسائل',
     'settings' => 'الاعدادات',
+    'notifications' => 'الإشعارات',
     'home_page' => 'الصفحة الرئيسية',
     'teams' => 'الفرق',
     'testimonials' => 'أراء العملاء',

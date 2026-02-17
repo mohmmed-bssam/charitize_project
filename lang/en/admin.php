@@ -17,6 +17,7 @@
         'messages'=>'Messages',
         'teams' => 'Teams',
         'settings'=>'Settings',
+        'notifications'=>'Notifications',
         'testimonials' => 'Testimonials',
         'language'=>'languages',
         'home_page'=>'Home Page',

@@ -13,6 +13,7 @@ use App\Http\Controllers\Dashboard\TestimonialController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -31,13 +32,23 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
         Route::get('/testimonials', [MainController::class, 'testimonials'])->name('testimonials');
         Route::get('/contact', [MainController::class, 'contact'])->name('contact');
         Route::post('/contact', [MainController::class, 'contact_data']);
-        Route::get('/donate/{cause}', [PaymentController::class, 'donate']
+        Route::post('subscriptions', [MainController::class, 'subscriptions'])->name('subscriptions');
+
+        Route::get(
+            '/donate/{cause}',
+            [PaymentController::class, 'donate']
         )->name('donate');
-        Route::post('/donate', [PaymentController::class, 'donate_process']
+        Route::post(
+            '/donate',
+            [PaymentController::class, 'donate_process']
         )->name('donate.process');
-        Route::get('/donation/success', [PaymentController::class, 'donate_success']
+        Route::get(
+            '/donation/success',
+            [PaymentController::class, 'donate_success']
         )->name('donate.success');
-        Route::get('/donation/cancel', [PaymentController::class, 'donate_cancel']
+        Route::get(
+            '/donation/cancel',
+            [PaymentController::class, 'donate_cancel']
         )->name('donate.cancel');
     });
 
@@ -57,13 +68,16 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
             Route::resource('sliders', SliderController::class);
             Route::resource('categories', CategoryController::class);
             Route::resource('cases', CaseController::class);
-            Route::get('case/{cause}/delete/{image}', [CaseController::class,'delete_image'])->name('delete_image');
+            Route::get('case/{cause}/delete/{image}', [CaseController::class, 'delete_image'])->name('delete_image');
             Route::resource('events', EventController::class);
             Route::resource('services', ServiceController::class);
             Route::resource('statistics', StatisticController::class);
             Route::resource('teams', TeamController::class);
             Route::resource('testimonials', TestimonialController::class);
             Route::get('messages', [DashboardController::class, 'messages'])->name('messages');
+            Route::delete('delete_messages/{id}', [DashboardController::class, 'delete_messages'])->name( 'delete_messages');
+            Route::get('notifications', [DashboardController::class, 'notifications'])->name('notifications');
+            Route::get('notifications/{notification}', [DashboardController::class, 'markAsRead'])->name('notifications.markAsRead');
             Route::get('subscriptions', [DashboardController::class, 'subscriptions'])->name('subscriptions');
             Route::get('donors', [DonationController::class, 'donors'])->name('donors');
             Route::get('donations', [DonationController::class, 'donations'])->name(name: 'donations');
@@ -74,3 +88,10 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
 
     require __DIR__ . '/auth.php';
 });
+
+// Route::get('/test-notification', function () {
+Route::get('/send-notify', function () {
+    $admin = User::where('type', 'admin')->first();
+    $admin->notify(new \App\Notifications\NewDonation());
+    return 'Notification sent!';
+})->name('send_notify_donate');

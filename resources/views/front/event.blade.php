@@ -1,6 +1,19 @@
 @extends('front.app')
 @section('title','Event')
 @section('content')
+<!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-4">
+            <h1 class="display-3 animated slideInDown">Event</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{{ route('front.index') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Event</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
   <!-- Event Start -->
     <div class="container-fluid py-5">
         <div class="container">
@@ -9,84 +22,21 @@
                 <h1 class="display-6 mb-4">Be a Part of a Global Movement</h1>
             </div>
             <div class="row g-4">
+                @foreach($events as $event)
                 <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.1s">
                     <div class="event-item h-100 p-4">
-                        <img class="img-fluid w-100 mb-4" src="img/event-1.jpg" alt="">
-                        <a href="#!" class="h3 d-inline-block">Education Program</a>
-                        <p>Through your donations and volunteer work, we spread kindness and support to children.</p>
+                        <img class="img-fluid w-100 mb-4" src="{{ asset($event->image->path) }}" alt="">
+                        <a href="#!" class="h3 d-inline-block">{{ $event->title_trans }}</a>
+                        <p>{{ $event->content_trans }}</p>
                         <div class="bg-light p-4">
-                            <p class="mb-1"><i class="fa fa-clock text-primary me-2"></i>10:00 AM - 18:00 PM</p>
-                            <p class="mb-1"><i class="fa fa-calendar-alt text-primary me-2"></i>Jan 01 - Jan 10</p>
-                            <p class="mb-0"><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York,
-                                USA</p>
+                            <p class="mb-1"><i class="fa fa-clock text-primary me-2"></i>{{ $event->hours }}</p>
+                            <p class="mb-1"><i class="fa fa-calendar-alt text-primary me-2"></i>{{ $event->date }}</p>
+                            <p class="mb-0"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ $event->location }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.3s">
-                    <div class="event-item h-100 p-4">
-                        <img class="img-fluid w-100 mb-4" src="img/event-2.jpg" alt="">
-                        <a href="#!" class="h3 d-inline-block">Awareness Program</a>
-                        <p>Through your donations and volunteer work, we spread kindness and support to children.</p>
-                        <div class="bg-light p-4">
-                            <p class="mb-1"><i class="fa fa-clock text-primary me-2"></i>10:00 AM - 18:00 PM</p>
-                            <p class="mb-1"><i class="fa fa-calendar-alt text-primary me-2"></i>Jan 01 - Jan 10</p>
-                            <p class="mb-0"><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York,
-                                USA</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="event-item h-100 p-4">
-                        <img class="img-fluid w-100 mb-4" src="img/event-3.jpg" alt="">
-                        <a href="#!" class="h3 d-inline-block">Health Care Program</a>
-                        <p>Through your donations and volunteer work, we spread kindness and support to children.</p>
-                        <div class="bg-light p-4">
-                            <p class="mb-1"><i class="fa fa-clock text-primary me-2"></i>10:00 AM - 18:00 PM</p>
-                            <p class="mb-1"><i class="fa fa-calendar-alt text-primary me-2"></i>Jan 01 - Jan 10</p>
-                            <p class="mb-0"><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York,
-                                USA</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="event-item h-100 p-4">
-                        <img class="img-fluid w-100 mb-4" src="img/event-1.jpg" alt="">
-                        <a href="#!" class="h3 d-inline-block">Education Program</a>
-                        <p>Through your donations and volunteer work, we spread kindness and support to children.</p>
-                        <div class="bg-light p-4">
-                            <p class="mb-1"><i class="fa fa-clock text-primary me-2"></i>10:00 AM - 18:00 PM</p>
-                            <p class="mb-1"><i class="fa fa-calendar-alt text-primary me-2"></i>Jan 01 - Jan 10</p>
-                            <p class="mb-0"><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York,
-                                USA</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.3s">
-                    <div class="event-item h-100 p-4">
-                        <img class="img-fluid w-100 mb-4" src="img/event-2.jpg" alt="">
-                        <a href="#!" class="h3 d-inline-block">Awareness Program</a>
-                        <p>Through your donations and volunteer work, we spread kindness and support to children.</p>
-                        <div class="bg-light p-4">
-                            <p class="mb-1"><i class="fa fa-clock text-primary me-2"></i>10:00 AM - 18:00 PM</p>
-                            <p class="mb-1"><i class="fa fa-calendar-alt text-primary me-2"></i>Jan 01 - Jan 10</p>
-                            <p class="mb-0"><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York,
-                                USA</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="event-item h-100 p-4">
-                        <img class="img-fluid w-100 mb-4" src="img/event-3.jpg" alt="">
-                        <a href="#!" class="h3 d-inline-block">Health Care Program</a>
-                        <p>Through your donations and volunteer work, we spread kindness and support to children.</p>
-                        <div class="bg-light p-4">
-                            <p class="mb-1"><i class="fa fa-clock text-primary me-2"></i>10:00 AM - 18:00 PM</p>
-                            <p class="mb-1"><i class="fa fa-calendar-alt text-primary me-2"></i>Jan 01 - Jan 10</p>
-                            <p class="mb-0"><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York,
-                                USA</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+
             </div>
         </div>
     </div>
@@ -116,7 +66,7 @@
     <!-- Banner End -->
 
 
-   
+
 
 
 @endsection

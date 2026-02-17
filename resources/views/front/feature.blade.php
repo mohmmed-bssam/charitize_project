@@ -1,6 +1,19 @@
 @extends('front.app')
 @section('title','Feature')
 @section('content')
+<!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-4">
+            <h1 class="display-3 animated slideInDown">Features</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{{ route('front.index') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Features</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
      <!-- Features Start -->
     <div class="container-fluid py-5">
         <div class="container">
@@ -8,34 +21,15 @@
                 <div class="col-lg-6">
                     <div class="rounded overflow-hidden">
                         <div class="row g-0">
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
-                                <div class="text-center bg-primary py-5 px-4 h-100">
-                                    <i class="fa fa-users fa-3x text-secondary mb-3"></i>
-                                    <h1 class="display-5 mb-0" data-toggle="counter-up">500</h1>
-                                    <span class="text-dark">Team Members</span>
+                            @foreach ($statistics as $statistic)
+                                <div class="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
+                                    <div class="text-center {{ $loop->iteration==2||$loop->iteration==3 ? 'bg-secondary':'bg-primary' }} py-5 px-4 h-100">
+                                        <i class="{{ $statistic->icon }}"></i>
+                                        <h1 class="display-5 mb-0" data-toggle="counter-up">{{ $statistic->number }}</h1>
+                                        <span class="text-dark">{{ $statistic->title_trans }}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.3s">
-                                <div class="text-center bg-secondary py-5 px-4 h-100">
-                                    <i class="fa fa-award fa-3x text-primary mb-3"></i>
-                                    <h1 class="display-5 text-white mb-0" data-toggle="counter-up">70</h1>
-                                    <span class="text-white">Award Winning</span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
-                                <div class="text-center bg-secondary py-5 px-4 h-100">
-                                    <i class="fa fa-list-check fa-3x text-primary mb-3"></i>
-                                    <h1 class="display-5 text-white mb-0" data-toggle="counter-up">3000</h1>
-                                    <span class="text-white">Total Projects</span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.7s">
-                                <div class="text-center bg-primary py-5 px-4 h-100">
-                                    <i class="fa fa-comments fa-3x text-secondary mb-3"></i>
-                                    <h1 class="display-5 mb-0" data-toggle="counter-up">7000</h1>
-                                    <span class="text-dark">Client's Review</span>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

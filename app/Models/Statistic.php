@@ -2,12 +2,21 @@
 
 namespace App\Models;
 
+use App\Traits\Trans;
 use Illuminate\Database\Eloquent\Model;
 
 class Statistic extends Model
 {
-    //
+     use Trans;
 
     protected $guarded=[];
+        public function casts(): array
+    {
+        return [
+            'title' => 'array',
+            'content' => 'array',
+
+        ];
+    }
 
 }
